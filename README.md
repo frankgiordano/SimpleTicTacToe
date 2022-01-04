@@ -2,5 +2,5 @@
 
 ## Demo
   
-![Demo](https://github.com/frankgiordano/SimpleTicTacToe/blob/master/tictactoe-demo.gif)  
+![Demo](https://github.com/frankgiordano/SimpleTicTacToe/blob/master/demo.gif)  
   
