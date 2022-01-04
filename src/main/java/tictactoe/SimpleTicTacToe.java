@@ -43,7 +43,7 @@ public class SimpleTicTacToe {
         // player X is first...
         boolean playerX = true;
 
-        // play until a player has won...
+        // play until a player has won or there is a draw...
         while ("Game not finished".equals(gameState(gird))) {
             System.out.print("Enter the coordinates: ");
             String[] inputs = scanner.nextLine().split(" ");
@@ -104,7 +104,7 @@ public class SimpleTicTacToe {
     }
 
     private static boolean isNotValidCoordinates(String[] inputs) {
-        if (inputs.length < 2) {
+        if (inputs.length < 2 || inputs.length > 2) {
             System.out.println("Please enter two coordinates!");
             return true;
         }
