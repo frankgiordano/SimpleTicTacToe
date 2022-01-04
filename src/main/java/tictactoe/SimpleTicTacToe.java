@@ -184,12 +184,8 @@ public class SimpleTicTacToe {
      * then the game state is impossible).
      */
     private static String gameState(String input) {
-        int numOfX = 0;
-        int numOfO = 0;
-        int emptyCells = 0;
-
-        boolean isXWinPosition = false;
-        boolean isOWinPosition = false;
+        int numOfX = 0, numOfO = 0, emptyCells = 0;
+        boolean isXWinPosition = false, isOWinPosition = false;
 
         for (int i = 0; i < input.length(); i++) {
             if (input.charAt(i) == 'X') numOfX++;
