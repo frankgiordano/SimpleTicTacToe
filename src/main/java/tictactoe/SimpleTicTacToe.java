@@ -153,7 +153,7 @@ public class SimpleTicTacToe {
      * Are coordinates values valid.
      */
     private static boolean isNotValidCoordinates(String[] inputs) {
-        if (inputs.length < 2 || inputs.length > 2) {
+        if (inputs.length != 2) {
             System.out.println(COORDINATES_MISSING_ERROR_MSG);
             return true;
         }
