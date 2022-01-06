@@ -23,6 +23,9 @@ import java.util.Scanner;
  */
 public class SimpleTicTacToe {
 
+    private static final String PLAYER_X_INPUT_MSG = "Enter the coordinates for X: ";
+    private static final String PLAYER_O_INPUT_MSG = "Enter the coordinates for O: ";
+
     /**
      * Prints an empty grid at the beginning of the game.
      * Creates a game loop where the program asks the user to enter
@@ -45,16 +48,16 @@ public class SimpleTicTacToe {
 
         // play until a player has won or there is a draw...
         while ("Game not finished".equals(gameState(gird))) {
-            System.out.print("Enter the coordinates: ");
+            System.out.print(playerX ? PLAYER_X_INPUT_MSG : PLAYER_O_INPUT_MSG);
             String[] inputs = scanner.nextLine().split(" ");
             while (isNotValidCoordinates(inputs) || isCellOccupied(gird, inputs)) {
-                System.out.print("Enter the coordinates: ");
+                System.out.print(playerX ? PLAYER_X_INPUT_MSG : PLAYER_O_INPUT_MSG);
                 inputs = scanner.nextLine().split(" ");
             }
             if (playerX) {  // player X turn...
                 gird = fillGridForXPlayer(gird, inputs);
                 playerX = false;
-            } else {  // player O turns...
+            } else {  // player O turn...
                 gird = fillGridForOPlayer(gird, inputs);
                 playerX = true;
             }
