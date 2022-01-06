@@ -25,7 +25,7 @@ public class SimpleTicTacToe {
 
     private static final String GAME_TITLE = "Tic Tac Toe";
     private static final String EMPTY_GAME_GIRD = "_________";
-    private static final String FIRST_PLAYER_MSG = "Player X is first...";
+    private static final String FIRST_PLAYER_MSG = "Player X is first!";
     private static final String PLAYER_X_INPUT_MSG = "Enter the coordinates for X: ";
     private static final String PLAYER_O_INPUT_MSG = "Enter the coordinates for O: ";
     private static final String COORDINATES_OUT_OF_RANGE_ERROR_MSG = "Coordinates should be from 1 to 3!";
@@ -82,7 +82,7 @@ public class SimpleTicTacToe {
      * Ask player to enter valid coordinates. Return two valid values.
      */
     private static String[] getCoordinates(StringBuilder gird, boolean toggle) {
-        Scanner scanner = new Scanner(System.in);
+        final Scanner scanner = new Scanner(System.in);
         System.out.print(toggle ? PLAYER_X_INPUT_MSG : PLAYER_O_INPUT_MSG);
         String[] coordinates = scanner.nextLine().split(" ");
         while (isNotValidCoordinates(coordinates) || isCellOccupied(gird, coordinates)) {
@@ -111,7 +111,7 @@ public class SimpleTicTacToe {
      * If a cell in the gird is already occupied return true otherwise false.
      */
     private static boolean isCellOccupied(StringBuilder gird, String[] inputs) {
-        char[] chars = gird.toString().toCharArray();
+        final char[] chars = gird.toString().toCharArray();
         boolean isFilled = false;
         if ("1".equals(inputs[0]) && "1".equals(inputs[1])) {
             if (chars[0] == 'X' || chars[0] == 'O')
@@ -157,7 +157,7 @@ public class SimpleTicTacToe {
             System.out.println(COORDINATES_MISSING_ERROR_MSG);
             return true;
         }
-        int input1, input2;
+        final int input1, input2;
         try {
             input1 = Integer.parseInt(inputs[0]);
             input2 = Integer.parseInt(inputs[1]);
@@ -178,7 +178,7 @@ public class SimpleTicTacToe {
      * Populate player's X coordinates within the game gird.
      */
     private static void fillGridForXPlayer(StringBuilder gird, String[] inputs) {
-        char[] chars = gird.toString().toCharArray();
+        final char[] chars = gird.toString().toCharArray();
         if ("1".equals(inputs[0]) && "1".equals(inputs[1]))
             chars[0] = 'X';
         if ("1".equals(inputs[0]) && "2".equals(inputs[1]))
@@ -206,7 +206,7 @@ public class SimpleTicTacToe {
      * Populate player's O coordinates within the game gird.
      */
     private static void fillGridForOPlayer(StringBuilder gird, String[] inputs) {
-        char[] chars = gird.toString().toCharArray();
+        final char[] chars = gird.toString().toCharArray();
         if ("1".equals(inputs[0]) && "1".equals(inputs[1]))
             chars[0] = 'O';
         if ("1".equals(inputs[0]) && "2".equals(inputs[1]))
