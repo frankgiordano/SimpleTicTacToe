@@ -25,6 +25,15 @@ public class SimpleTicTacToe {
 
     private static final String PLAYER_X_INPUT_MSG = "Enter the coordinates for X: ";
     private static final String PLAYER_O_INPUT_MSG = "Enter the coordinates for O: ";
+    private static final String COORDINATES_OUT_OF_RANGE_ERROR_MSG = "Coordinates should be from 1 to 3!";
+    private static final String COORDINATES_AS_CHARS_ERROR_MSG = "You should enter numbers!";
+    private static final String COORDINATES_MISSING_ERROR_MSG = "Please enter two coordinates!";
+    private static final String COORDINATES_OCCUPIED_ERROR_MSG = "This cell is occupied! Choose another one!";
+    private static final String X_WINS_MSG = "X wins";
+    private static final String O_WINS_MSG = "O wins";
+    private static final String IMPOSSIBLE_MSG = "Impossible";
+    private static final String DRAW_MSG = "Draw";
+    private static final String GAME_NOT_FINISHED_MSG = "Game not finished";
 
     /**
      * Game starting main method. Triggers: gameStart(), gameLoop(), and once loop ends, prints
@@ -59,7 +68,7 @@ public class SimpleTicTacToe {
         // player X is first...
         boolean toggle = true;
         // play until a player has won or there is a draw...
-        while ("Game not finished".equals(gameState(gird))) {
+        while (GAME_NOT_FINISHED_MSG.equals(gameState(gird))) {
             String[] coordinates = getCoordinates(gird, toggle);
             toggle = fillGridForPlayer(gird, toggle, coordinates);
             displayGrid(gird);
@@ -131,7 +140,7 @@ public class SimpleTicTacToe {
         }
 
         if (isFilled) {
-            System.out.println("This cell is occupied! Choose another one!");
+            System.out.println(COORDINATES_OCCUPIED_ERROR_MSG);
         }
 
         return isFilled;
@@ -142,7 +151,7 @@ public class SimpleTicTacToe {
      */
     private static boolean isNotValidCoordinates(String[] inputs) {
         if (inputs.length < 2 || inputs.length > 2) {
-            System.out.println("Please enter two coordinates!");
+            System.out.println(COORDINATES_MISSING_ERROR_MSG);
             return true;
         }
         int input1, input2;
@@ -150,12 +159,12 @@ public class SimpleTicTacToe {
             input1 = Integer.parseInt(inputs[0]);
             input2 = Integer.parseInt(inputs[1]);
         } catch (NumberFormatException e) {
-            System.out.println("You should enter numbers!");
+            System.out.println(COORDINATES_AS_CHARS_ERROR_MSG);
             return true;
         }
 
         if (input1 <= 0 || input1 > 3 || input2 <= 0 || input2 > 3) {
-            System.out.println("Coordinates should be from 1 to 3!");
+            System.out.println(COORDINATES_OUT_OF_RANGE_ERROR_MSG);
             return true;
         }
 
@@ -280,21 +289,21 @@ public class SimpleTicTacToe {
 
         // determine game state after checking all grid cells done above...
         if (isXWinPosition && isOWinPosition)
-            return "Impossible";
+            return IMPOSSIBLE_MSG;
         else if (numOfX == 3 && isXWinPosition)
-            return "X wins";
+            return X_WINS_MSG;
         else if (numOfO == 3 && isOWinPosition)
-            return "O wins";
+            return O_WINS_MSG;
         else if (Math.abs(numOfX - numOfO) >= 2)
-            return "Impossible";
+            return IMPOSSIBLE_MSG;
         else if (numOfX >= numOfO && isXWinPosition)
-            return "X wins";
+            return X_WINS_MSG;
         else if (numOfO >= numOfX && isOWinPosition)
-            return "O wins";
+            return O_WINS_MSG;
         else if (emptyCells == 0)
-            return "Draw";
+            return DRAW_MSG;
 
-        return "Game not finished";
+        return GAME_NOT_FINISHED_MSG;
     }
 
     /**
