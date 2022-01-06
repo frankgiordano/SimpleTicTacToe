@@ -23,6 +23,9 @@ import java.util.Scanner;
  */
 public class SimpleTicTacToe {
 
+    private static final String GAME_TITLE = "Tic Tac Toe";
+    private static final String EMPTY_GAME_GIRD = "_________";
+    private static final String FIRST_PLAYER_MSG = "Player X is first...";
     private static final String PLAYER_X_INPUT_MSG = "Enter the coordinates for X: ";
     private static final String PLAYER_O_INPUT_MSG = "Enter the coordinates for O: ";
     private static final String COORDINATES_OUT_OF_RANGE_ERROR_MSG = "Coordinates should be from 1 to 3!";
@@ -49,12 +52,12 @@ public class SimpleTicTacToe {
      * Print game start info and empty game gird.
      */
     private static StringBuilder gameStart() {
-        System.out.println("Tic Tac Toe\n");
-        System.out.println("Player X is first...\n");
+        System.out.println(GAME_TITLE + "\n");
+        System.out.println(FIRST_PLAYER_MSG + "\n");
 
         // Start with an empty game gird...
         StringBuilder gird = new StringBuilder();
-        gird.append("_________");
+        gird.append(EMPTY_GAME_GIRD);
         displayGrid(gird);
         return gird;
     }
