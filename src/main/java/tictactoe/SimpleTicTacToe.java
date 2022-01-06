@@ -27,43 +27,49 @@ public class SimpleTicTacToe {
     private static final String PLAYER_O_INPUT_MSG = "Enter the coordinates for O: ";
 
     /**
-     * Prints an empty grid at the beginning of the game. Creates a game loop where
-     * the program asks the user to enter the cell coordinates, analyzes the move for
-     * correctness and shows a grid with the changes if everything is okay. Ends the
-     * game when someone wins or there is a draw.
+     * Game starting main method. Triggers: gameStart(), gameLoop(), and once loop ends, prints
+     * game's end status winner or draw via gameState().
      */
     public static void main(String[] args) {
+        StringBuilder gird = gameStart();
+        gameLoop(gird);
+        System.out.println(gameState(gird));
+    }
 
+    /**
+     * Print game start info and empty game gird.
+     */
+    private static StringBuilder gameStart() {
         System.out.println("Tic Tac Toe\n");
         System.out.println("Player X is first...\n");
 
         // Start with an empty game gird...
-        String gird = "_________";
+        StringBuilder gird = new StringBuilder();
+        gird.append("_________");
         displayGrid(gird);
+        return gird;
+    }
 
+    /**
+     * Creates a game loop where the program asks the user to enter the cell coordinates,
+     * analyzes the move for correctness and shows a grid with the changes if everything is
+     * okay. Ends the game when someone wins or there is a draw.
+     */
+    private static void gameLoop(StringBuilder gird) {
         // player X is first...
         boolean toggle = true;
-
         // play until a player has won or there is a draw...
         while ("Game not finished".equals(gameState(gird))) {
             String[] coordinates = getCoordinates(gird, toggle);
-            if (toggle) {  // player X turn...
-                gird = fillGridForXPlayer(gird, coordinates);
-                toggle = false;
-            } else {  // player O turn...
-                gird = fillGridForOPlayer(gird, coordinates);
-                toggle = true;
-            }
+            toggle = fillGridForPlayer(gird, toggle, coordinates);
             displayGrid(gird);
         }
-
-        System.out.println(gameState(gird));
     }
 
     /**
      * Ask player to enter valid coordinates. Return two valid values.
      */
-    private static String[] getCoordinates(String gird, boolean toggle) {
+    private static String[] getCoordinates(StringBuilder gird, boolean toggle) {
         Scanner scanner = new Scanner(System.in);
         System.out.print(toggle ? PLAYER_X_INPUT_MSG : PLAYER_O_INPUT_MSG);
         String[] coordinates = scanner.nextLine().split(" ");
@@ -75,10 +81,25 @@ public class SimpleTicTacToe {
     }
 
     /**
+     * Determine whether to fill in gird with X or O value and then calls another method to populate
+     * the gird accordingly via its coordinates.
+     */
+    private static boolean fillGridForPlayer(StringBuilder gird, boolean toggle, String[] coordinates) {
+        if (toggle) {  // player X turn...
+            fillGridForXPlayer(gird, coordinates);
+            toggle = false;
+        } else {  // player O turn...
+            fillGridForOPlayer(gird, coordinates);
+            toggle = true;
+        }
+        return toggle;
+    }
+
+    /**
      * If a cell in the gird is already occupied return true otherwise false.
      */
-    private static boolean isCellOccupied(String gird, String[] inputs) {
-        char[] chars = gird.toCharArray();
+    private static boolean isCellOccupied(StringBuilder gird, String[] inputs) {
+        char[] chars = gird.toString().toCharArray();
         boolean isFilled = false;
         if ("1".equals(inputs[0]) && "1".equals(inputs[1])) {
             if (chars[0] == 'X' || chars[0] == 'O')
@@ -144,8 +165,8 @@ public class SimpleTicTacToe {
     /**
      * Populate player's X coordinates within the game gird.
      */
-    private static String fillGridForXPlayer(String gird, String[] inputs) {
-        char[] chars = gird.toCharArray();
+    private static void fillGridForXPlayer(StringBuilder gird, String[] inputs) {
+        char[] chars = gird.toString().toCharArray();
         if ("1".equals(inputs[0]) && "1".equals(inputs[1]))
             chars[0] = 'X';
         if ("1".equals(inputs[0]) && "2".equals(inputs[1]))
@@ -165,14 +186,15 @@ public class SimpleTicTacToe {
         if ("3".equals(inputs[0]) && "3".equals(inputs[1]))
             chars[8] = 'X';
 
-        return String.valueOf(chars);
+        gird.setLength(0);
+        gird.append(String.valueOf(chars));
     }
 
     /**
      * Populate player's O coordinates within the game gird.
      */
-    private static String fillGridForOPlayer(String gird, String[] inputs) {
-        char[] chars = gird.toCharArray();
+    private static void fillGridForOPlayer(StringBuilder gird, String[] inputs) {
+        char[] chars = gird.toString().toCharArray();
         if ("1".equals(inputs[0]) && "1".equals(inputs[1]))
             chars[0] = 'O';
         if ("1".equals(inputs[0]) && "2".equals(inputs[1]))
@@ -192,7 +214,8 @@ public class SimpleTicTacToe {
         if ("3".equals(inputs[0]) && "3".equals(inputs[1]))
             chars[8] = 'O';
 
-        return String.valueOf(chars);
+        gird.setLength(0);
+        gird.append(String.valueOf(chars));
     }
 
     /**
@@ -205,7 +228,7 @@ public class SimpleTicTacToe {
      * a lot more X's than O's or vice versa (the difference should be 1 or 0; if the difference is 2 or more,
      * then the game state is impossible).
      */
-    private static String gameState(String input) {
+    private static String gameState(StringBuilder input) {
         int numOfX = 0, numOfO = 0, emptyCells = 0;
         boolean isXWinPosition = false, isOWinPosition = false;
 
@@ -277,7 +300,7 @@ public class SimpleTicTacToe {
     /**
      * Print current game gird.
      */
-    public static void displayGrid(String input) {
+    public static void displayGrid(StringBuilder input) {
         System.out.println("---------");
         System.out.println("| " + input.charAt(0) + " " + input.charAt(1) + " " + input.charAt(2) + " |");
         System.out.println("| " + input.charAt(3) + " " + input.charAt(4) + " " + input.charAt(5) + " |");
