@@ -291,17 +291,11 @@ public class SimpleTicTacToe {
             isOWinPosition = true;
 
         // determine game state after checking all grid cells done above...
-        if (isXWinPosition && isOWinPosition)
+        if ((isXWinPosition && isOWinPosition) || (Math.abs(numOfX - numOfO) >= 2))
             return IMPOSSIBLE_MSG;
-        else if (numOfX == 3 && isXWinPosition)
+        else if ((numOfX == 3 && isXWinPosition) || (numOfX >= numOfO && isXWinPosition))
             return X_WINS_MSG;
-        else if (numOfO == 3 && isOWinPosition)
-            return O_WINS_MSG;
-        else if (Math.abs(numOfX - numOfO) >= 2)
-            return IMPOSSIBLE_MSG;
-        else if (numOfX >= numOfO && isXWinPosition)
-            return X_WINS_MSG;
-        else if (numOfO >= numOfX && isOWinPosition)
+        else if ((numOfO == 3 && isOWinPosition) || (numOfO >= numOfX && isOWinPosition))
             return O_WINS_MSG;
         else if (emptyCells == 0)
             return DRAW_MSG;
